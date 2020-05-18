@@ -51,31 +51,47 @@ Dans cette première partie, vous allez analyser [une connexion WPA Entreprise](
 
 - Comparer [la capture](files/auth.pcap) au processus d’authentification donné en théorie (n’oubliez pas les captures d'écran pour illustrer vos comparaisons !). En particulier, identifier les étapes suivantes :
 	- Requête et réponse d’authentification système ouvert
+	  ![Open authentication](files/img/open-auth.png)
  	- Requête et réponse d’association (ou reassociation)
+	Commentaire: Il n y a pas d'association, seulement des réassociation
+	  ![Association](files/img/no-asso.png)
+	  ![Association](files/img/no-asso-resp.png)
+	  ![Association](files/img/reasso.png)
+	  ![Association](files/img/reasso-resp.png)
+
 	- Négociation de la méthode d’authentification entreprise
+	Commentaire : nous voyons ici le refus de la première proposition (EAP-TLS), avant de choisir EAP-PEAP
+	 ![negotiation](files/img/nego.png)
 	- Phase d’initiation. Arrivez-vous à voir l’identité du client ?
+	Commentaire: Oui, l'identité est sur la capture (joel.gonin)
+	![identité](files/img/identity.png)
 	- Phase hello :
 		- Version TLS
 		- Suites cryptographiques et méthodes de compression proposées par le client et acceptées par l’AP
 		- Nonces
 		- Session ID
+	![hello](files/img/hello.png)
 	- Phase de transmission de certificats
 	 	- Echanges des certificats
 		- Change cipher spec
+	![change cipher](files/img/change-cipher.png)
+	![certificat](files/img/certif-server.png)
 	- Authentification interne et transmission de la clé WPA (échange chiffré, vu comme « Application data »)
 	- 4-way handshake
+	![handshake](files/img/4way.png)
+
 
 ### Répondez aux questions suivantes :
  
 > **_Question :_** Quelle ou quelles méthode(s) d’authentification est/sont proposé(s) au client ?
-> 
-> **_Réponse :_** 
+> **_Réponse :_** EAP-TLS et EAP-PEAP (voir commentaire ci-dessus)
+
 
 ---
 
 > **_Question:_** Quelle méthode d’authentification est finalement utilisée ?
 > 
-> **_Réponse:_** 
+> **_Réponse:_** EAP-PEAP
 
 ---
 
@@ -83,11 +99,10 @@ Dans cette première partie, vous allez analyser [une connexion WPA Entreprise](
 > 
 > - a. Le serveur envoie-t-il un certificat au client ? Pourquoi oui ou non ?
 > 
-> **_Réponse:_**
-> 
+> **_Réponse:_** Oui car il doit s'identifier auprès du client avant la création du tunnel tls
 > - b. Le client envoie-t-il un certificat au serveur ? Pourquoi oui ou non ?
 > 
-> **_Réponse:_**
+> **_Réponse:_** Non, dans PEAP-EAP le client utilise le tunnel TLS pour s'authentifier (inner-authentication), notamment à l'aide d'une autre méthode EAP
 > 
 
 ---
