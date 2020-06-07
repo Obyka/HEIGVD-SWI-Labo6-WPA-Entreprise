@@ -77,6 +77,16 @@ Dans cette première partie, vous allez analyser [une connexion WPA Entreprise](
 	![change cipher](files/img/change-cipher.png)
 	![certificat](files/img/certif-server.png)
 	- Authentification interne et transmission de la clé WPA (échange chiffré, vu comme « Application data »)
+
+		Première authentification interne trouvée :
+		![internal authentication](files/img/internal_auth_1.png)
+	
+		Deuxième authentification interne trouvée :
+		![internal authentication](files/img/internal_auth_2.png)
+
+		Troisième authentification interne trouvée :
+		![internal authentication](files/img/internal_auth_3.png)
+	
 	- 4-way handshake
 	![handshake](files/img/4way.png)
 
